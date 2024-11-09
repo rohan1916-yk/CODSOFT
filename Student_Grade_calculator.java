@@ -1,4 +1,4 @@
-//This Is Java Programming Task 
+//This Is Java Programming Task 2
 //Calculator.java
 
 import java.util.*;
