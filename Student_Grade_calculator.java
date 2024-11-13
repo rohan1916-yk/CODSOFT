@@ -1,37 +1,44 @@
-//This Is Java Programming Task 2
-//Calculator.java
+import java.util.Scanner;
+public class SGC{
+    public static void main(String[] args){
+        Scanner sc=new Scanner(System.in);
+        System.out.println("*******************Student grade Calculator**************");
+        System.out.println("Enter the number of subjects:");
+        //Here s is number of subjects
+        int s=sc.nextInt();
+        int total=0;
+        System.out.println("Enter the marks obtained in "+s+" subjects respectively: ");
+        for(int i=0;i<s;i++){
+            int marks=sc.nextInt();
+            total=total+marks;
+        }
+        //AP is Average percentage
+         double AP=(double)total/s;
+         String Grade;
+         if (AP>=90){
+           Grade="A+"; 
+         }
+         else if(AP>=80){
+            Grade="A";
+         }
+         else if(AP>=70){
+            Grade="B";
+         }
+         else if(AP>=60){
+            Grade="C";
+         }
+         else if(AP>=50){
+            Grade="D";
+         }
+         else if(AP>=40){
+            Grade="E";
+         }
+         else{
+            Grade="Fail(F)";
+         }
+         System.out.println("Total marks = "+total);
+         System.out.println("Avreage Percentage= "+AP+" %");
+         System.out.println("Grade is : "+Grade);
 
-import java.util.*;
-public class GradeCalculator {
-
-	public static void main(String[]args)
-	{
-	Scanner n=new Scanner(System.in);
-	int S1,S2,S3,S4,S5;
-	System.out.println("Enter the mark for Subject_1:");
-	S1=n.nextInt();
-	System.out.println("Enter the mark for Subject_2:");
-	S2=n.nextInt();
-	System.out.println("Enter the mark for Subject_3:");
-	S3=n.nextInt();
-	System.out.println("Enter the mark for Subject_4:");
-	S4=n.nextInt();
-	System.out.println("Enter the mark for Subject_5:");
-	S5=n.nextInt();
-	int s=S1+S2+S3+S4+S5;
-	int avg=s/5;                            //Calculating the Average of 5 Subjects
-	System.out.println(avg);
-	if(avg>=90)
-	 System.out.print("Grade A");         //More than 90Marks!
-	else if(avg>=80&&avg<90)
-	  System.out.print("Grade B");        //More than 80Marks!
-	else if(avg>=70&&avg<80)
-		  System.out.print("Grade C");    //More than 70Marks!
-	else if(avg>=60&&avg<70)
-		  System.out.print("Grade D");    //More than 60Marks!
-	else if(avg>=50&&avg<60)
-		  System.out.print("Grade E");    //More than 50Marks!
-	else
-		System.out.print("Grade F");      //less than 50Marks!
-	}
+    }
 }
