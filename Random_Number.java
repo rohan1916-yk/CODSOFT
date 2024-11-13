@@ -1,46 +1,55 @@
-//This is Java Programming Task 1
-//NumberGame limits upto 1-99
+import java.util.Scanner;
 
+class range {
+    public int genrate(int max, int min) {
+        return (int) (Math.random() * (max - min + 1) + min);
+    }
+}
 
-import java.util.*;
-public class RandomNumber{
-    public static void main(String[]args){
-	    Scanner k=new Scanner(System.in);
-        Random random=new Random();
-        int a=random.nextInt(100),b=1,s=0;
-        System.out.println("Welcome to the Number Game  \nEnjoy the Experience \nRandom Number Generates From 0 to 99");
-        while(b<=5)
-        {
-	        System.out.print("Enter The Number:    ");
-	        int c=k.nextInt();
-	        if(c>a)
-	        {
-		        System.out.println("Large value think less than this Number!!");
-		        s++;
-	        }
-	        else if(c<a)
-	        {
-		        System.out.println("Small value think Greater than this Number!!");
-		        s++;
-	        }
-	        else
-	        {
-		        System.out.println("Succesful • Yeah!! It is Right Answer");
-		        break;
-	        }
-	        b++;
+public class Number_Game {
+    public static void main(String[] args) {
+        Scanner s = new Scanner(System.in);
+        range rg = new range();
+        int TA = 0;
+        int win = 0;
+
+        while (true) {
+            System.out.println("Enter the minimum number:");
+            int min = s.nextInt();
+            System.out.println("Enter the maximum number:");
+            int max = s.nextInt();
+            s.nextLine(); // Consume the newline character
+            int c = rg.genrate(max, min);
+            int A = 0;
+
+            while (true) {
+                System.out.println("Guess a number between " + min + " and " + max);
+                int g = s.nextInt();
+                A++;
+
+                if (g > c) {
+                    System.out.println("It's Greater");
+                } else if (g < c) {
+                    System.out.println("It's lower");
+                } else {
+                    System.out.println("Correct guess");
+                    win++;
+                    break;
+                }
+            }
+            TA = TA + A;
+            System.out.println("Attempts = " + A);
+            System.out.println("Wins = " + win);
+
+            double winrate = (double) win / TA * 100;
+            System.out.printf("Your win rate is %.2f%%\n", winrate);
+            System.out.println("Do you want to play again (y/n)?");
+            String PA = s.next();
+            if (!PA.equalsIgnoreCase("y")) {
+                s.close();
+                System.exit(0);
+            }
+            s.nextLine(); // Consume the newline character
         }
-        int f=5-s;
-  
-        if(s==5)
-        {
-	    System.out.println("Sorry for the inconvenience • better luck next time!!");
-        }
-        else
-        {
-	    System.out.println("Congrats!! You Have Won The Game!!  \nYou are an Cracker  \nPlay Again!!");
-	    System.out.println("Your Score is "+f+"/5");
-        }
-        System.out.println("The Random Number is "+a);
     }
 }
