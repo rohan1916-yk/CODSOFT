@@ -1,73 +1,89 @@
-//This Is Java Programming Task 3
-//Atm Interface.java
+import java.util.Scanner;
 
-import java.util.*;
+class BankAccount {
+    private double balance;
 
-public class ATMGenerator{
-	static int tot=0;
-	public static void main(String[]args)
-	{
-	 Scanner sc=new Scanner(System.in);
-	 System.out.println("Welcome to Our ATM!!!  \nInsert Your ATM Card  \n Make the Transation Safe!!");
-	 System.out.println("1]DEPOSIT            //Deposit More than Rs.500   \n2]WITHDRAWAL         //WithDrawal Minimum Rs.500");
-	 System.out.println("3]CHECK BALANCE      \n4]EXIT");
-	 System.out.println();
-	 boolean last=true;
-	 while(last)
-	 {
-       System.out.print("Enter the Number to choose the option:" );
-       int a=sc.nextInt();
-	 switch(a)
-	 {
-	 case 1:
-		 deposit();
-		 break;
-	 case 2:
-		 withdrawl();
-		 break;
-	 case 3:
-		 System.out.println("The Balance Amount is:"+check_balance());
-		 break;
-	 case 4:
-		 last=false;
-		 break;
-	 }
-	 }
-     System.out.println("Thank You!!");
-     
-	}
-	public static void deposit()
-	{
-		Scanner sc=new Scanner(System.in);
-		System.out.print("Enter the amount for deposit:");
-		int dep=sc.nextInt();
-		if(dep<1000)
-		{
-			System.out.println("Sorry!!You need deposit more than 500!!");
-		}
-		tot+=dep;
-	}
-	public static void withdrawl()
-	{
-		Scanner sc=new Scanner(System.in);
-		System.out.print("Enter the amount for withdrawl:");
-		int dep=sc.nextInt();
-		int ch=check_balance();
-		if(ch>1000)
-		{
-			if(dep>ch)
-			  System.out.println("Your Withdrawl Amount Is Greater Than The Balance Amount!!");				 
-			else
-			{
-			tot-=dep;
-			if(tot<1000)
-			  System.out.println("It reaches the minimum limit!!");
-			}
-		}
-		
-	}
-	public static int check_balance()
-	{
-		return tot;
-	}
+    public BankAccount(double IB) {
+        balance = IB; //initial balance (IB)
+    }
+ public double getBalance() {
+        return balance;
+    }
+
+    public void deposit(double amount) {
+        balance = balance + amount;
+    }
+public boolean withdraw(double amount) {
+        if (amount <= balance) {
+               balance -= amount;
+            return true;
+        } else {
+             return false;
+        }
+    }
+}
+
+class ATM {
+    private BankAccount account;
+
+    public ATM(BankAccount account) {
+        this.account = account;
+    }
+
+    public void displayMenu() {
+        System.out.println("Welcome to the ATM!");
+        System.out.println("1. Check Balance");
+        System.out.println("2. Deposit");
+        System.out.println("3. Withdraw");
+        System.out.println("4. Exit");
+    }
+  public void PT() {
+        Scanner sc = new Scanner(System.in);
+        int choice;
+        double amount;
+
+        while (true) {
+            displayMenu();
+            System.out.print("Enter your choice: ");
+            choice = sc.nextInt();
+
+            switch (choice) {
+                case 1:
+                    System.out.println("Your balance is: Rs. " + account.getBalance());
+                    break;
+                case 2:
+                    System.out.print("Enter the deposit amount: Rs. ");
+                    amount = sc.nextDouble();
+                    if (amount > 0) {
+                        account.deposit(amount);
+                        System.out.println("Deposit successful.");
+                    } else {
+                        System.out.println("Invalid deposit amount.");
+                    }
+                    break;
+                case 3:
+                    System.out.print("Enter the withdrawal amount: Rs. ");
+                    amount = sc.nextDouble();
+                    if (amount > 0 && account.withdraw(amount)) {
+                        System.out.println("Withdrawal successful.");
+                    } else {
+                        System.out.println("Invalid withdrawal amount or insufficient balance.");
+                    }
+                    break;
+                case 4:
+                    System.out.println("Thank you for using the ATM. Goodbye!");
+                    return;
+                default:
+                    System.out.println("Invalid choice. Please try again.");
+            }
+        }
+    }
+}
+
+public class ATM_INTERFACE {
+    public static void main(String[] args) {
+        BankAccount userAccount = new BankAccount(100000); 
+        ATM atm = new ATM(userAccount);
+        atm.PT();
+    }
 }
